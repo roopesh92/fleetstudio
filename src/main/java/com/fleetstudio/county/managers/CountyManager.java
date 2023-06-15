@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.util.Streamable;
 import org.springframework.util.ResourceUtils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -38,19 +36,34 @@ public class CountyManager {
     }
 
     public static List<County> getCountySuggestion(CountyRepository countyRepository, String query) {
-        String formattedQuery = "%"+query.toLowerCase()+"%";
-        List<County> counties = countyRepository.getCountySuggestion(formattedQuery,PageRequest.of(0, 5));
-        System.out.println("formattedQuery: "+formattedQuery+" <=> counties: "+counties);
-        return counties;
+        String[] sQuery = query.split(",");
+        if(sQuery.length>1){
+            return countyRepository.getCountySuggestionByStateAndName(
+                formatQuery(sQuery[1]),
+                formatQuery(sQuery[0]),
+                PageRequest.of(0, 5));
+        }
+        return countyRepository.getCountySuggestion(formatQuery(query),PageRequest.of(0, 5));
     }
 
     public static List<County> getCountySuggestionPriority(CountyRepository countyRepository, String query){
 
+        String[] sQuery = query.split(",");
+        if(sQuery.length>1){
+            return countyRepository.getCountySuggestionByStateAndName(
+                formatQuery(sQuery[1]),
+                formatQuery(sQuery[0]),
+                PageRequest.of(0, 5));
+        }
         List<County> countyList = countyRepository.findByStateContainingIgnoreCase(query,PageRequest.of(0, 5));
         if(countyList.size()<5){
             countyList.addAll(countyRepository.findByNameContainingIgnoreCase(query,PageRequest.of(0, 5-countyList.size())));
         }
         return countyList;
+    }
+
+    public static String formatQuery(String query){
+        return "%"+query.toLowerCase().trim()+"%";
     }
     
 }
