@@ -29,13 +29,13 @@ public class CountyController {
         return "Inserted "+insertedCount+" entries to DB";
     }
 
-    @GetMapping("/getcounty")
+    @GetMapping("/suggestv1")
     List<County> getCountySuggestion(@RequestParam  String q) {
         System.out.println("q: "+q);
         return CountyManager.getCountySuggestion(countyRepository,q);
     }
 
-    @GetMapping("/getcountyp")
+    @GetMapping("/suggest")
     List<County> getCountySuggestionPriority(@RequestParam  String q) {
         System.out.println("q: "+q);
         return CountyManager.getCountySuggestionPriority(countyRepository,q);
