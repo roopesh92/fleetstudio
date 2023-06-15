@@ -25,8 +25,8 @@ There are 2 endpoints in this system
 
 1. Checks for state code first, if there are no suffeciuent results then checks for county name.
 
-http://localhost:3000/getcountyp?q=YOUR_QUERY
+http://localhost:3000/suggest?q=YOUR_QUERY
 
 2. Check for both state and county name in single query without any priorities 
 
-http://localhost:3000/getcounty?q=YOUR_QUERY
+http://localhost:3000/suggestv1?q=YOUR_QUERY

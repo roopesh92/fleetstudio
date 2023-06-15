@@ -1,6 +1,8 @@
 package com.fleetstudio.county.controllers;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,14 +33,14 @@ public class CountyController {
 
     @GetMapping("/suggestv1")
     List<County> getCountySuggestion(@RequestParam  String q) {
-        System.out.println("q: "+q);
         return CountyManager.getCountySuggestion(countyRepository,q);
     }
 
     @GetMapping("/suggest")
     List<County> getCountySuggestionPriority(@RequestParam  String q) {
-        System.out.println("q: "+q);
         return CountyManager.getCountySuggestionPriority(countyRepository,q);
     }
+
+    
     
 }
