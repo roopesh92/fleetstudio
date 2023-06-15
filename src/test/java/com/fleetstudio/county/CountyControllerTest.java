@@ -47,7 +47,7 @@ public class CountyControllerTest {
         List<County> records = new ArrayList<>(Arrays.asList(county2, county3));
         Mockito.when(countyRepository.findByStateContainingIgnoreCase("ba",PageRequest.of(0, 5))).thenReturn(records);        
         mockMvc.perform(MockMvcRequestBuilders
-                .get("/getcountyp?q=ba")
+                .get("/suggest?q=ba")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -57,7 +57,7 @@ public class CountyControllerTest {
         List<County> records = new ArrayList<>(Arrays.asList(county2, county3));
         Mockito.when(countyRepository.findByStateContainingIgnoreCase("ba",PageRequest.of(0, 5))).thenReturn(records);        
         mockMvc.perform(MockMvcRequestBuilders
-                .get("/getcountyp?q=ba")
+                .get("/suggest?q=ba")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
@@ -68,7 +68,7 @@ public class CountyControllerTest {
         List<County> records = new ArrayList<>(Arrays.asList(county2, county3));
         Mockito.when(countyRepository.findByStateContainingIgnoreCase("ba",PageRequest.of(0, 5))).thenReturn(records);        
         mockMvc.perform(MockMvcRequestBuilders
-                .get("/getcountyp?q=ba")
+                .get("/suggest?q=ba")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[1].name", is("Barbour")));
